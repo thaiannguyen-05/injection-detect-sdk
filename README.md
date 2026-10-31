@@ -1,6 +1,6 @@
-# injection-req-res-sdk — TS/JS only (source thường, không monorepo)
+# injection-req-res-sdk — TS/JS only (single source, no monorepo)
 
-Port từ `orca/gateway` theo `injection-flow.excalidraw`. Chỉ giữ SDK TypeScript.
+Ported from `orca/gateway` per `injection-flow.excalidraw`. TypeScript SDK only.
 
 ```
 src/
@@ -11,7 +11,7 @@ src/
   guards-external/ thresholdGuard                             KEY / offline scores
 ```
 
-## Dùng
+## Usage
 
 ```bash
 npm install
@@ -25,4 +25,11 @@ const sdk = new InjectionSDK({ inputRegex: ['ignore previous instructions'] });
 await sdk.scanInput({ messages: [{ role: 'user', content: 'hi' }] });
 ```
 
-`verdict=false + shouldDeny=true -> 446`. Xem `examples/ts-usage.ts`.
+`verdict=false + shouldDeny=true -> 446`. See `examples/ts-usage.ts`.
+
+## CI/CD (dynamic version)
+
+- `push tag vX.Y.Z` → publishes version `X.Y.Z`.
+- Manual `Actions > publish > Run workflow > version` → publishes that version.
+- Other pushes → dev version `0.0.0-dev.<timestamp>.<sha>`, dry-run only (no publish).
+- Requires repo secret `NPM_TOKEN`. Publish uses `--provenance --access public` plus GitHub Release.
