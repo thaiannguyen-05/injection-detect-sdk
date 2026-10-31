@@ -1,4 +1,4 @@
-import { InjectionSDK } from 'injection-req-res-sdk';
+import { InjectionSDK } from '@thaiandev/injection-req-res-sdk';
 
 // PURE only — no API key
 const sdk = new InjectionSDK({
